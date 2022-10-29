@@ -1,7 +1,7 @@
 require 'items'
 require 'pg'
 
-RSpec.describe Item do
+RSpec.describe ItemRepo do
   def reset_items_table
     seed_sql = File.read('spec/seeds.sql')
     connection = PG.connect({ host: '127.0.0.1', dbname: 'shop-manager' })
@@ -27,5 +27,13 @@ RSpec.describe Item do
     expect(items[3].unit_price).to eq '1'
     expect(items[3].quantity).to eq '500'
   end
+
+  it 'creates an entry in the items table' do
+    item_repo = ItemRepo.new
+
+    item_repo.create('gel', 2, 100)
+
+    expect(item_repo.all.length).to eq 6
+  end  
 end    
 

@@ -24,5 +24,14 @@ class ItemRepo
     return items
 
     
+  end
+  
+  def create(name, unit_price, quantity)
+    DatabaseConnection.connect('shop-manager')
+    sql = 'INSERT INTO items (name, unit_price, quantity) VALUES ($1, $2, $3);'
+    
+    params = [name, unit_price, quantity]
+    
+    DatabaseConnection.exec_params(sql, params)
   end  
 end
