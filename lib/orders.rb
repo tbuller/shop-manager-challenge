@@ -7,7 +7,7 @@ end
 class OrderRepo
   def all
     DatabaseConnection.connect('shop-manager')
-    result = DatabaseConnection.exec_params('SELECT * FROM orders', [])
+    result = DatabaseConnection.exec_params('SELECT * FROM orders;', [])
 
     orders = []
 
@@ -24,4 +24,12 @@ class OrderRepo
     return orders
     
   end  
+
+  def create(customer_name, order_date, item_id)
+    DatabaseConnection.connect('shop-manager')
+    sql = 'INSERT INTO orders (customer_name, order_date, item_id) VALUES ($1, $2, $3);'
+    params = [customer_name, order_date, item_id]
+
+    DatabaseConnection.exec_params(sql, params)
+  end
 end
