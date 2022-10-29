@@ -32,10 +32,26 @@ What do you want to do?
 
     if input == 1
       items.all.map { |i| print "#{i.id} product: #{i.name.upcase} - price: £#{i.unit_price} - quantity: #{i.quantity}\n" }
+    elsif input == 2
+      @io.puts "Please enter a product" 
+      input1 = @io.gets.chomp
+      @io.puts "Please enter its price" 
+      input2 = @io.gets.chomp.to_i
+      @io.puts "Please enter its quantity" 
+      input3 = @io.gets.chomp.to_i
+      items.create(input1, input2, input3)
     elsif input == 3
       orders.all.map { |o| print "#{o.id} #{o.customer_name} - date: #{o.order_date} - product: #{items.all[o.item_id.to_i - 1].name}\n" }
-    else
-      puts "wrong number"  
+    elsif input == 4
+      @io.puts "Please enter customer's name" 
+      input1 = @io.gets.chomp
+      @io.puts "Please enter the date of the order" 
+      input2 = @io.gets.chomp
+      @io.puts "Please enter the product id" 
+      input3 = @io.gets.chomp.to_i
+      orders.create(input1, input2, input3)  
+    else 
+      @io.puts "Invalid entry, please try again"
     end  
 
     
